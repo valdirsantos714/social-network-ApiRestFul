@@ -1,8 +1,8 @@
 package com.valdirsantos714.ApiRestFulRedeSocial.services;
 
-import com.valdirsantos714.ApiRestFulRedeSocial.dtos.UserDto;
-import com.valdirsantos714.ApiRestFulRedeSocial.entities.User;
-import com.valdirsantos714.ApiRestFulRedeSocial.repositories.UserRepository;
+import com.valdirsantos714.ApiRestFulRedeSocial.dtos.PostDto;
+import com.valdirsantos714.ApiRestFulRedeSocial.entities.Post;
+import com.valdirsantos714.ApiRestFulRedeSocial.repositories.PostRepository;
 import com.valdirsantos714.ApiRestFulRedeSocial.services.exceptions.DataBaseException;
 import com.valdirsantos714.ApiRestFulRedeSocial.services.exceptions.ResourceNotFound;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,22 +16,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class PostService {
 
     @Autowired
-    private UserRepository userRepository;
+    private PostRepository postRepository;
 
     @Transactional
-    public User save(UserDto userDto) {
-        var user = new User(userDto);
+    public Post save(PostDto postDto) {
+        var post = new Post(postDto);
 
-        return userRepository.save(user);
+        return postRepository.save(post);
     }
 
     @Transactional
     public void delete(String id) {
         try {
-            userRepository.deleteById(id);
+            postRepository.deleteById(id);
 
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFound(id);
@@ -41,33 +41,33 @@ public class UserService {
         }
     }
 
-    public List<User> findAll() {
-        List<User> list = userRepository.findAll();
+    public List<Post> findAll() {
+        List<Post> list = postRepository.findAll();
 
         return list;
     }
 
-    public User findById(String id) {
-        Optional<User> user = userRepository.findById(id);
+    public Post findById(String id) {
+        Optional<Post> post = postRepository.findById(id);
 
-        return user.orElseThrow(() -> new ResourceNotFound(id));
+        return post.orElseThrow(() -> new ResourceNotFound(id));
     }
 
-    public User update(String id, UserDto userDto) {
+    public Post update(String id, PostDto postDto) {
         try {
-            User user = userRepository.getReferenceById(id);
+            Post post = postRepository.getReferenceById(id);
 
-            updateData(user, userDto);
+            updateData(post, postDto);
 
-            return userRepository.save(user);
+            return postRepository.save(post);
 
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFound(id);
         }
     }
 
-    private void updateData(User outdatedUser, UserDto updatedUser) {
-        outdatedUser.setName(updatedUser.name());
-        outdatedUser.setEmail(updatedUser.email());
+    private void updateData(Post outdatedPost, PostDto updatedPost) {
+        outdatedPost.setTitle(updatedPost.title());
+        outdatedPost.setBody(updatedPost.body());
     }
 }
