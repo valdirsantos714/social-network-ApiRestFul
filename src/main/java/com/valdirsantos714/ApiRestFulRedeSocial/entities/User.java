@@ -31,8 +31,9 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Post> posts = new ArrayList<>();
 
-    @OneToOne(mappedBy = "author", cascade = CascadeType.ALL)
-    private Comment comment;
+    @JsonIgnore
+    @OneToMany(mappedBy = "author")
+    private List<Comment> comments = new ArrayList<>();
 
     public User(UserDto userDto) {
         this.name = userDto.name();

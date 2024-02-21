@@ -34,9 +34,9 @@ public class CommentService {
     }
 
     @Transactional
-    public Comment save(CommentDto commentDto) {
-        Comment comment = new Comment(commentDto);
-        return comment;
+    public Comment save(Comment comment) {
+
+        return commentRepository.save(comment);
     }
 
     @Transactional

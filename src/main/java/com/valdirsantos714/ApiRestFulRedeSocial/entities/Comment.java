@@ -29,12 +29,12 @@ public class Comment {
     @JoinColumn(name = "id_post")
     private Post post;
 
-    @JsonIgnore
-    @OneToOne
-    @MapsId
+    @ManyToOne
+    @JoinColumn(name = "id_user")
     private User author;
 
     public Comment(CommentDto commentDto) {
+
         this.text = commentDto.text();
     }
 }

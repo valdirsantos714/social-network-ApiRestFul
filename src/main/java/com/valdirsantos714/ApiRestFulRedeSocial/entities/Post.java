@@ -1,5 +1,6 @@
 package com.valdirsantos714.ApiRestFulRedeSocial.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.valdirsantos714.ApiRestFulRedeSocial.dtos.PostDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,7 +20,7 @@ import java.util.List;
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID) //Tipo de estratégia de gerar ids, com o chaves aleatórias do tipo string
     private String id;
 
     private Instant date;
@@ -34,6 +35,7 @@ public class Post {
     @JoinColumn(name = "id_user")
     private User author;
 
+    @JsonIgnore //Precisa colocar em arraylist para não dar loop infinito
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 

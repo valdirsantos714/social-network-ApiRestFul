@@ -22,9 +22,7 @@ public class PostService {
     private PostRepository postRepository;
 
     @Transactional
-    public Post save(PostDto postDto) {
-        var post = new Post(postDto);
-
+    public Post save(Post post) {
         return postRepository.save(post);
     }
 

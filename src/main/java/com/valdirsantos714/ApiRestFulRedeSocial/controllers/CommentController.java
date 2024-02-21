@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -23,14 +24,6 @@ public class CommentController {
         List<Comment> comments = commentService.findAll();
         return ResponseEntity.ok().body(comments);
     }
-    /*
-    @GetMapping(value = "/{user}/{senha}")
-
-    public ResponseEntity<String> amostraTela(@PathVariable String user, @PathVariable Sring senha) {
-         if (user == "valdir" && senha == 1223) {
-            return "/telaPrincipal";
-        }
-     */
 
 
     @GetMapping(value = "/{id}")
@@ -41,7 +34,10 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity<Comment> saveComment(@RequestBody @Valid CommentDto commentDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(commentService.save(commentDto));
+        Comment comment = new Comment(commentDto);
+        comment.setDate(Instant.now()); //Dessa forma ele cria um comment a partir de um comment dto validado e quando salvar no banco de dados ele vai com a hora que vc salvou
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentService.save(comment));
     }
 
     @PutMapping(value = "/{id}")
