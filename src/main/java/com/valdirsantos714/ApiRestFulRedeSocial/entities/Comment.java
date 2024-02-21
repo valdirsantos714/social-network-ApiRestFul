@@ -5,6 +5,7 @@ import com.valdirsantos714.ApiRestFulRedeSocial.dtos.CommentDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
@@ -14,7 +15,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Comment {
+public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

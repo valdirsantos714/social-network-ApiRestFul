@@ -5,6 +5,7 @@ import com.valdirsantos714.ApiRestFulRedeSocial.dtos.PostDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Post {
+public class Post implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID) //Tipo de estratégia de gerar ids, com o chaves aleatórias do tipo string
