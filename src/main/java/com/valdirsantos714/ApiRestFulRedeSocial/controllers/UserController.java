@@ -1,6 +1,8 @@
 package com.valdirsantos714.ApiRestFulRedeSocial.controllers;
 
 import com.valdirsantos714.ApiRestFulRedeSocial.dtos.UserDto;
+import com.valdirsantos714.ApiRestFulRedeSocial.entities.Comment;
+import com.valdirsantos714.ApiRestFulRedeSocial.entities.Post;
 import com.valdirsantos714.ApiRestFulRedeSocial.entities.User;
 import com.valdirsantos714.ApiRestFulRedeSocial.services.UserService;
 import jakarta.validation.Valid;
@@ -31,6 +33,23 @@ public class UserController {
 
         return ResponseEntity.ok().body(user);
     }
+
+
+    //===========PEGA OS POSTS DE UM USUÁRIO POR ID
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User user = userService.findById(id);
+
+        return ResponseEntity.ok().body(user.getPosts());
+    }
+
+    @GetMapping(value = "/{id}/comments")
+    public ResponseEntity<List<Comment>> findComments(@PathVariable String id) {
+        User user = userService.findById(id);
+
+        return ResponseEntity.ok().body(user.getComments());
+
+    } // PEGA OS COMENTÁRIOS DE UM USUÁRIO DE ACORDO COM O ID DA PESSOA
 
     @PostMapping
     public ResponseEntity<User> saveUser(@RequestBody @Valid UserDto userDto) {

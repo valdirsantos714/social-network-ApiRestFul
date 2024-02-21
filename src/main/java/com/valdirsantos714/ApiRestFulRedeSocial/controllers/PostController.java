@@ -1,6 +1,7 @@
 package com.valdirsantos714.ApiRestFulRedeSocial.controllers;
 
 import com.valdirsantos714.ApiRestFulRedeSocial.dtos.PostDto;
+import com.valdirsantos714.ApiRestFulRedeSocial.entities.Comment;
 import com.valdirsantos714.ApiRestFulRedeSocial.entities.Post;
 import com.valdirsantos714.ApiRestFulRedeSocial.services.PostService;
 import jakarta.validation.Valid;
@@ -31,6 +32,13 @@ public class PostController {
         Post post = postService.findById(id);
 
         return ResponseEntity.ok().body(post);
+    }
+
+    @GetMapping(value = "/{id}/comments")
+    public ResponseEntity<List<Comment>> findComments(@PathVariable String id) {
+        Post post = postService.findById(id);
+
+        return ResponseEntity.ok().body(post.getComments());
     }
 
     @PostMapping
