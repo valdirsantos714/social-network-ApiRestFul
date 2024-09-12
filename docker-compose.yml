@@ -25,14 +25,14 @@ services:
       DB_HOST: database
       DB_USER: usuario
       DB_PASSWORD: senha_usuario
+      DATABASE: nome_do_banco
     depends_on:
       - database
     networks:
       - app_network
     ports:
       - "8080:8080"
-    entrypoint: ["/app/wait-for-it.sh", "database:3306", "--timeout=60", "--", "java", "-jar", "/app/app.jar"]
-
+    entrypoint: ["/app/wait-for-it.sh", "database:3306", "--timeout=90", "--", "java", "-jar", "/app/app.jar"]
 
 networks:
   app_network:
