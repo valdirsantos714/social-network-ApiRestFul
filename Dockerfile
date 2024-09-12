@@ -17,4 +17,4 @@ COPY target/ApiRestFul-RedeSocial-0.0.1-SNAPSHOT.jar /app/app.jar
 EXPOSE 8080
 
 # Comando para rodar a aplicação Spring Boot
-ENTRYPOINT ["./wait-for-it.sh", "database:3306", "--", "java", "-jar", "app.jar"]
+ENTRYPOINT ["./wait-for-it.sh", "mysql_cont:3306", "--", "java", "-jar", "app.jar"]
