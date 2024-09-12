@@ -1,9 +1,24 @@
+add:
+	git status
+	read -p "Digite o nome do arquivo que deseja adicionar: " file; git add $$file
+
+addAll:
+	git add .
+
 pull:
 	git pull
 
 commit:
-	$(MAKE) pull
-	git add .
+	@$(MAKE) pull
+	read -p "Digite 'all' para adicionar todos os arquivos ou 'add' para um especifico: " option; \
+	if [ $$option = "all" ]; then  \
+	    $(MAKE) addAll; \
+    elif [ $$option = "add" ]; then \
+    	$(MAKE) add; \
+    else \
+    	echo "Opção incorreta"; \
+	fi
+
 	read -p "Escreva o texto do commit: " text; git commit -m "$$text"
 	git push
 
@@ -14,4 +29,3 @@ log:
 reset:
 	$(MAKE) log
 	read -p "Digite o hash do commit: " hash; git reset --soft $$hash
-
