@@ -9,7 +9,7 @@ pull:
 	git pull
 
 commit:
-	@$(MAKE) pull
+	$(MAKE) pull
 	read -p "Digite 'all' para adicionar todos os arquivos ou 'add' para um especifico: " option; \
 	if [ $$option = "all" ]; then  \
 	    $(MAKE) addAll; \
@@ -29,3 +29,14 @@ log:
 reset:
 	$(MAKE) log
 	read -p "Digite o hash do commit: " hash; git reset --soft $$hash
+
+branch:
+	read -p "Digite o nome da branch: " name; \
+	git checkout -b $$name; \
+	git push -u origin $$name;
+
+deleteBranch:
+	read -p "Digite o nome da branch que vc quer deletar: " name; \
+	git checkout main; \
+	git branch -d $$name; \
+	git push;
