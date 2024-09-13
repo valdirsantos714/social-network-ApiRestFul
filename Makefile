@@ -38,5 +38,5 @@ branch:
 deleteBranch:
 	read -p "Digite o nome da branch que vc quer deletar: " name; \
 	git checkout main; \
-	git branch -D $$name; \
+	git branch -d $$name; \
 	git push;
